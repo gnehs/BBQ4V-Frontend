@@ -43,23 +43,18 @@ export default {
     items: [
       {
         icon: "mdi-home",
-        title: "Home",
+        title: "首頁",
         to: "/",
       },
       {
-        icon: "mdi-account-music",
-        title: "Users",
-        to: "/users",
+        icon: "mdi-account",
+        title: "帳號",
+        to: "/accounts",
       },
       {
-        icon: "mdi-music-note",
-        title: "Songs",
-        to: "/songs",
-      },
-      {
-        icon: "mdi-shape",
-        title: "Categories",
-        to: "/categories",
+        icon: "mdi-ticket-account",
+        title: "邀請碼",
+        to: "/tickets",
       },
     ],
     access_token: localStorage["access_token"],
@@ -70,6 +65,7 @@ export default {
       localStorage.removeItem("access_token");
       localStorage.removeItem("role");
       this.access_token = null;
+      alert("您已成功登出！");
     },
   },
 };

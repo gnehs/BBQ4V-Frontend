@@ -51,7 +51,6 @@ export default {
           password,
           grant_type: "password",
         });
-        console.log(loginResult.data);
         localStorage["access_token"] = loginResult.data.access_token;
         localStorage["username"] = loginResult.data.info.username;
         localStorage["role"] = loginResult.data.role;
