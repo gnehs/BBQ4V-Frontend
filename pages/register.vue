@@ -26,7 +26,7 @@
       outlined
       @click:append="showPassword = !showPassword"
     />
-    <v-btn color="primary" block> 註冊 </v-btn>
+    <v-btn color="primary" block @click="register"> 註冊 </v-btn>
   </div>
 </template>
 <script>
@@ -51,5 +51,13 @@ export default {
     showPassword: false,
     tokenLocked: false,
   }),
+  methods: {
+    async register() {
+      let { token, username, password, password2 } = this.form;
+      if (token == "" || username == "" || password == "" || password2 == "") {
+        return alert("請填寫所有欄位。");
+      }
+    },
+  },
 };
 </script>
