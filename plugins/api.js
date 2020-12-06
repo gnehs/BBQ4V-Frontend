@@ -1,3 +1,4 @@
+const stubuAPIUrl = require('../stubuapi').default.api
 export default function ({ $axios, redirect }, inject) {
     // Create a custom axios instance
     const api = $axios.create({
@@ -22,7 +23,8 @@ export default function ({ $axios, redirect }, inject) {
 
 
     // Set baseURL to something different
-    api.setBaseURL('http://pve2.rextw.com:3000')
+    console.log(stubuAPIUrl)
+    api.setBaseURL(stubuAPIUrl)
 
     // Inject to context as $api
     inject('api', api)

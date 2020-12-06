@@ -1,5 +1,10 @@
 # BBQ4V-Frontend
-
+## `stubuapi.js`
+```js
+export default {
+    api: "http://aaa.bbb.ccc:1069"
+}
+```
 ## Build Setup
 
 ```bash
