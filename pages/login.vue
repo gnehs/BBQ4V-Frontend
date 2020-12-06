@@ -43,22 +43,26 @@ export default {
   }),
   methods: {
     async login() {
-      this.loading = true;
       let { username, password } = this.form;
-      try {
-        let loginResult = await this.$axios.post("/oauth2/token", {
-          username,
-          password,
-          grant_type: "password",
-        });
-        localStorage["access_token"] = loginResult.data.access_token;
-        localStorage["username"] = loginResult.data.info.username;
-        localStorage["role"] = loginResult.data.role;
-        this.loading = false;
-        this.$router.push("/");
-      } catch (e) {
-        alert("登入失敗，可能是帳號或密碼輸入錯誤，請重試。");
-        this.loading = false;
+      if (username != "" && password != "") {
+        this.loading = true;
+        try {
+          let loginResult = await this.$axios.post("/oauth2/token", {
+            username,
+            password,
+            grant_type: "password",
+          });
+          localStorage["access_token"] = loginResult.data.access_token;
+          localStorage["username"] = loginResult.data.info.username;
+          localStorage["role"] = loginResult.data.role;
+          this.loading = false;
+          this.$router.push("/");
+        } catch (e) {
+          alert("登入失敗，可能是帳號或密碼輸入錯誤，請重試。");
+          this.loading = false;
+        }
+      } else {
+        alert("請輸入帳號與密碼");
       }
     },
   },
