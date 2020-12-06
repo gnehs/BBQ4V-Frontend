@@ -22,15 +22,14 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>BBQ4V</v-toolbar-title>
       <v-spacer />
-      <!--<v-btn text icon @click.stop="changetheme">
-        <v-icon>mdi-theme-light-dark</v-icon>
-      </v-btn>-->
+      <v-btn v-if="!access_token" text to="/login"> 登入 </v-btn>
+      <v-btn v-else text @click="logout"> 登出 </v-btn>
     </v-app-bar>
-    <v-content>
+    <v-main>
       <v-container grid-list-md>
         <nuxt />
       </v-container>
-    </v-content>
+    </v-main>
     <!--<v-footer app>
 			<span>&copy; 2019</span>
 		</v-footer>-->
@@ -63,7 +62,15 @@ export default {
         to: "/categories",
       },
     ],
+    access_token: localStorage["access_token"],
   }),
-  methods: {},
+  methods: {
+    logout() {
+      localStorage.removeItem("username");
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("role");
+      this.access_token = null;
+    },
+  },
 };
 </script>
