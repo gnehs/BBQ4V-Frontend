@@ -21,6 +21,8 @@
     <v-btn color="primary" block @click="login" :loading="loading">
       登入
     </v-btn>
+    <div style="margin-top: 8px" />
+    <v-btn color="primary" block text to="/"> 以來賓身份繼續使用 </v-btn>
   </div>
 </template>
 <script>
@@ -47,7 +49,7 @@ export default {
       if (username != "" && password != "") {
         this.loading = true;
         try {
-          let loginResult = await this.$axios.post("/oauth2/token", {
+          let loginResult = await this.$api.post("/oauth2/token", {
             username,
             password,
             grant_type: "password",
@@ -55,6 +57,9 @@ export default {
           localStorage["access_token"] = loginResult.data.access_token;
           localStorage["username"] = loginResult.data.info.username;
           localStorage["role"] = loginResult.data.role;
+          this.$api.defaults.headers.common = {
+            Authorization: `Bearer ${loginResult.data.access_token}`,
+          };
           this.loading = false;
           this.$router.push("/");
         } catch (e) {

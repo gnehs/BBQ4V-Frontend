@@ -65,7 +65,11 @@ export default {
       localStorage.removeItem("access_token");
       localStorage.removeItem("role");
       this.access_token = null;
-      alert("您已成功登出！");
+      this.$api.defaults.headers.common = {
+        Authorization: null,
+      };
+      //alert("您已成功登出！");
+      this.$router.push("/login");
     },
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="max-512-container">
     <h1>邀請碼</h1>
   </div>
 </template>
