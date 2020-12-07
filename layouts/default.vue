@@ -49,6 +49,11 @@ export default {
         to: "/",
       },
       {
+        icon: "mdi-youtube-subscription",
+        title: "YouTuber",
+        to: "/streamer",
+      },
+      {
         icon: "mdi-account",
         title: "帳號",
         to: "/account",
