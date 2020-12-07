@@ -57,6 +57,18 @@ export default {
       if (token == "" || username == "" || password == "" || password2 == "") {
         return alert("請填寫所有欄位。");
       }
+      if (password != password2) {
+        return alert("密碼與確認密碼不符。");
+      }
+      try {
+        let registerResult = await this.$api.post(`/register/${token}`, {
+          username,
+          password,
+        });
+        this.$router.push("/login");
+      } catch (e) {
+        alert(e);
+      }
     },
   },
 };

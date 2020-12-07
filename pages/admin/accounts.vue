@@ -10,7 +10,7 @@
         </v-btn>
       </div>
     </div>
-    <v-list>
+    <v-list v-if="accountList.length">
       <template v-for="(account, index) in accountList">
         <v-list-item :key="account.id">
           <v-list-item-icon>
@@ -29,10 +29,12 @@
         ></v-divider>
       </template>
     </v-list>
+    <p v-else>空ㄉ</p>
   </div>
 </template>
 <script>
 export default {
+  layout: "admin",
   head() {
     const title = "帳號";
     return {
@@ -47,10 +49,6 @@ export default {
   },
   methods: {
     async getAccountList() {
-      this.$axios.defaults.headers.common = {
-        Authorization: `Bearer ${localStorage["access_token"]}`,
-      };
-      let vue = this;
       this.accountList = (await this.$api.get("/accounts")).data;
     },
   },

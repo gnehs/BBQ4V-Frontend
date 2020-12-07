@@ -18,11 +18,11 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar clipped-left fixed app color="primary" dark>
+    <v-app-bar clipped-left fixed app color="teal" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title>BBQ4V</v-toolbar-title>
+      <v-toolbar-title>BBQ4V - 管理介面</v-toolbar-title>
       <v-spacer />
-      <v-btn v-if="role == 'admin'" text to="/admin/accounts"> 管理 </v-btn>
+      <v-btn text to="/"> 首頁 </v-btn>
       <v-btn v-if="!access_token" text to="/login"> 登入 </v-btn>
       <v-btn v-else text @click="logout"> 登出 </v-btn>
     </v-app-bar>
@@ -43,9 +43,14 @@ export default {
     drawer: null,
     items: [
       {
-        icon: "mdi-home",
-        title: "首頁",
-        to: "/",
+        icon: "mdi-account",
+        title: "帳號",
+        to: "/admin/accounts",
+      },
+      {
+        icon: "mdi-ticket-account",
+        title: "邀請碼",
+        to: "/admin/tickets",
       },
     ],
     access_token: localStorage["access_token"],
