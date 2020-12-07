@@ -42,6 +42,9 @@
             <v-list-item-title v-text="account.username" />
             <v-list-item-subtitle v-text="account.role" />
           </v-list-item-content>
+          <v-btn icon @click="editAccount(account)">
+            <v-icon> mdi-pencil </v-icon>
+          </v-btn>
           <v-btn color="red" icon @click="deleteAccount(account)">
             <v-icon> mdi-delete </v-icon>
           </v-btn>
@@ -52,6 +55,26 @@
         ></v-divider>
       </template>
     </v-list>
+    <v-dialog v-model="editUserDialog" width="500" v-if="editUserForm">
+      <v-card>
+        <v-card-title class="headline grey lighten-2">
+          Privacy Policy
+        </v-card-title>
+
+        <v-card-text>
+          <v-select :items="roles" v-model="editUserForm.role" label="Role" />
+        </v-card-text>
+        <pre>{{ editUserForm }}</pre>
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text @click="editUserDialog = false">
+            I accept
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
@@ -66,9 +89,11 @@ export default {
   data: () => ({
     accountList: [],
     showAddUserCard: false,
-    roles: ["admin", "guest", "user"],
+    editUserDialog: false,
+    editUserForm: null,
+    roles: ["admin", "guest", "member"],
     form: {
-      role: "user",
+      role: "member",
       username: "",
       password: "",
     },
@@ -96,6 +121,10 @@ export default {
       } catch (error) {}
       await this.getAccountList();
       this.showAddUserCard = false;
+    },
+    editAccount(account) {
+      this.editUserForm = JSON.parse(JSON.stringify(account));
+      this.editUserDialog = true;
     },
   },
 };

@@ -70,10 +70,10 @@ export default {
   },
   data: () => ({
     inviteList: [],
-    roles: ["admin", "guest", "user"],
+    roles: ["admin", "guest", "member"],
     showGenerateTokenCard: false,
     form: {
-      role: "user",
+      role: "member",
       remaining: 1,
     },
   }),
