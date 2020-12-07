@@ -2,20 +2,21 @@
   <v-app>
     <v-navigation-drawer v-model="drawer" clipped fixed app>
       <v-list shaped>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
+        <template v-for="(item, i) in items">
+          <v-list-item
+            :key="i"
+            :to="item.to"
+            router
+            exact
+            v-if="access_token || !item.loginOnly"
+          >
+            <v-list-item-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.title" />
+            </v-list-item-content> </v-list-item
+        ></template>
       </v-list>
     </v-navigation-drawer>
     <v-app-bar clipped-left fixed app color="primary" dark>
@@ -51,6 +52,7 @@ export default {
         icon: "mdi-account",
         title: "帳號",
         to: "/account",
+        loginOnly: true,
       },
     ],
     access_token: localStorage["access_token"],
