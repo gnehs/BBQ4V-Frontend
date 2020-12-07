@@ -57,7 +57,6 @@
         ></v-divider>
       </template>
     </v-list>
-    <p v-else>空ㄉ</p>
   </div>
 </template>
 <script>
@@ -87,8 +86,7 @@ export default {
     },
     copyRegisterLink(token) {
       let link = `${location.origin}/register?token=${token}`;
-      navigator.clipboard.writeText(link);
-      alert("已複製");
+      prompt("邀請連結：", link);
     },
     async generateToken() {
       await this.$api.post("/invite", this.form);

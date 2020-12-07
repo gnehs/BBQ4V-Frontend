@@ -29,7 +29,6 @@
         ></v-divider>
       </template>
     </v-list>
-    <p v-else>空ㄉ</p>
   </div>
 </template>
 <script>
