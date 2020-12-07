@@ -79,7 +79,7 @@
           <v-btn color="grey" text @click="editUserDialog = false">
             取消
           </v-btn>
-          <v-btn color="primary" text @click="editAccount"> 編輯 </v-btn>
+          <v-btn color="primary" text @click="editAccount"> 完成 </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
