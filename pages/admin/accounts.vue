@@ -42,7 +42,7 @@
             <v-list-item-title v-text="account.username" />
             <v-list-item-subtitle v-text="account.role" />
           </v-list-item-content>
-          <v-btn icon @click="editAccount(account)">
+          <v-btn icon @click="openEditDialog(account)">
             <v-icon> mdi-pencil </v-icon>
           </v-btn>
           <v-btn color="red" icon @click="deleteAccount(account)">
@@ -57,21 +57,29 @@
     </v-list>
     <v-dialog v-model="editUserDialog" width="500" v-if="editUserForm">
       <v-card>
-        <v-card-title class="headline grey lighten-2">
-          Privacy Policy
-        </v-card-title>
+        <v-card-title> 編輯使用者 </v-card-title>
 
         <v-card-text>
+          <v-text-field label="ID" v-model="editUserForm.id" disabled />
           <v-select :items="roles" v-model="editUserForm.role" label="Role" />
+          <v-text-field label="Username" v-model="editUserForm.username" />
+          <v-text-field
+            label="Password"
+            v-model="editUserForm.password"
+            disabled
+          />
         </v-card-text>
-        <pre>{{ editUserForm }}</pre>
         <v-divider></v-divider>
 
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="editUserDialog = false">
-            I accept
+          <v-btn color="orange" text @click="changeAccountPassword">
+            更改密碼
           </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="grey" text @click="editUserDialog = false">
+            取消
+          </v-btn>
+          <v-btn color="primary" text @click="editAccount"> 編輯 </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -122,9 +130,34 @@ export default {
       await this.getAccountList();
       this.showAddUserCard = false;
     },
-    editAccount(account) {
+    openEditDialog(account) {
       this.editUserForm = JSON.parse(JSON.stringify(account));
       this.editUserDialog = true;
+    },
+    async editAccount() {
+      let { username, role } = this.editUserForm;
+      try {
+        await this.$api.patch(`/accounts/${this.editUserForm.id}`, {
+          username,
+          role,
+        });
+      } catch (error) {}
+      await this.getAccountList();
+      this.editUserDialog = false;
+    },
+    async changeAccountPassword() {
+      let newPassword = prompt("新密碼：");
+      if (newPassword) {
+        try {
+          let changePassRes = await this.$api.patch(
+            `/accounts/${this.editUserForm.id}`,
+            {
+              password: newPassword,
+            }
+          );
+          this.editUserForm.password = changePassRes.data[0].password;
+        } catch (error) {}
+      }
     },
   },
 };
