@@ -48,6 +48,11 @@ export default {
         to: "/admin/accounts",
       },
       {
+        icon: "mdi-account-group",
+        title: "翻譯組",
+        to: "/admin/groups",
+      },
+      {
         icon: "mdi-ticket-account",
         title: "邀請碼",
         to: "/admin/tickets",
