@@ -47,6 +47,11 @@ export default {
         title: "首頁",
         to: "/",
       },
+      {
+        icon: "mdi-account",
+        title: "帳號",
+        to: "/account",
+      },
     ],
     access_token: localStorage["access_token"],
     role: localStorage["role"],

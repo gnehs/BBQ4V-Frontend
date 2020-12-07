@@ -57,6 +57,7 @@ export default {
           localStorage["access_token"] = loginResult.data.access_token;
           localStorage["username"] = loginResult.data.info.username;
           localStorage["role"] = loginResult.data.role;
+          localStorage["id"] = loginResult.data.info.id;
           this.$api.defaults.headers.common = {
             Authorization: `Bearer ${loginResult.data.access_token}`,
           };
