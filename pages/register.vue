@@ -66,9 +66,7 @@ export default {
           password,
         });
         this.$router.push("/login");
-      } catch (e) {
-        alert(e);
-      }
+      } catch (e) {}
     },
   },
 };

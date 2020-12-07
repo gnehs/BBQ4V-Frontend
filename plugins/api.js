@@ -15,7 +15,7 @@ export default function ({ $axios, redirect }, inject) {
             if (error.response.data.error == "invalid_grant") {
                 return redirect("/login");
             } else {
-                alert(error.response.data.error_description);
+                alert(error.response.data.error_description || error.response.data);
             }
         }
     })

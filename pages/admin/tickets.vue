@@ -16,7 +16,7 @@
       </div>
     </div>
     <v-expand-transition>
-      <v-card elevation="2" v-show="showGenerateTokenCard">
+      <v-card v-show="showGenerateTokenCard">
         <v-card-title>產生邀請碼</v-card-title>
         <v-card-text class="text--primary">
           <v-select :items="roles" v-model="form.role" label="Role" />
