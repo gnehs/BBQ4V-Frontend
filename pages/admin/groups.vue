@@ -32,41 +32,35 @@
         </v-card-actions>
       </v-card>
     </v-expand-transition>
-    <v-list v-if="accountList.length">
-      <template v-for="(account, index) in accountList">
-        <v-list-item :key="account.id">
-          <v-list-item-icon>
-            <v-icon color="green" v-if="account.role == 'admin'">
-              mdi-star
-            </v-icon>
-          </v-list-item-icon>
-
+    <v-list v-if="groupList.length">
+      <template v-for="(item, index) in groupList">
+        <v-list-item :key="item.id">
           <v-list-item-content>
-            <v-list-item-title v-text="account.username" />
-            <v-list-item-subtitle v-text="account.role" />
+            <v-list-item-title v-text="item.name" />
+            <v-list-item-subtitle v-text="item.description || '(無介紹)'" />
           </v-list-item-content>
-          <v-btn icon @click="openEditDialog(account)">
+          <v-btn icon @click="openEditDialog(item)">
             <v-icon> mdi-pencil </v-icon>
           </v-btn>
-          <v-btn color="red" icon @click="deleteGroup(account)">
+          <v-btn color="red" icon @click="deleteGroup(item)">
             <v-icon> mdi-delete </v-icon>
           </v-btn>
         </v-list-item>
         <v-divider
-          v-if="index < accountList.length - 1"
-          :key="account.id + 'd'"
+          v-if="index < groupList.length - 1"
+          :key="item.id + 'd'"
         ></v-divider>
       </template>
     </v-list>
     <v-dialog v-model="editGroupDialog" width="500" v-if="editGroupForm">
       <v-card>
-        <v-card-title> 編輯使用者 </v-card-title>
+        <v-card-title> 編輯翻譯組 </v-card-title>
 
         <v-card-text>
-          <v-text-field label="Name" v-model="form.name" />
+          <v-text-field label="Name" v-model="editGroupForm.name" />
           <v-textarea
             label="Description"
-            v-model="form.description"
+            v-model="editGroupForm.description"
             hide-details
           />
         </v-card-text>
@@ -93,7 +87,7 @@ export default {
     };
   },
   data: () => ({
-    accountList: [],
+    groupList: [],
     showAddGroupCard: false,
     editGroupDialog: false,
     editGroupForm: null,
@@ -107,7 +101,7 @@ export default {
   },
   methods: {
     async getGroupList() {
-      this.accountList = (await this.$api.get("/groups")).data;
+      this.groupList = (await this.$api.get("/groups")).data;
     },
     async deleteGroup(group) {
       if (confirm("安捏甘好？")) {
