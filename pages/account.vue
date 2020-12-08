@@ -21,6 +21,12 @@
           <v-list-item-subtitle>輕觸這裡更改密碼</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
+      <v-list-item @click="deleteAccount">
+        <v-list-item-content>
+          <v-list-item-title>刪除帳號</v-list-item-title>
+          <v-list-item-subtitle>輕觸這裡刪除帳號</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
     </v-list>
   </div>
 </template>
@@ -56,6 +62,24 @@ export default {
           );
           this.editUserForm.password = changePassRes.data[0].password;
         } catch (error) {}
+      }
+    },
+    async deleteAccount() {
+      if (confirm("確定要刪除您的帳號嗎？")) {
+        let accountPrompt = prompt("請輸入您的帳號來確認刪除：");
+        if (accountPrompt) {
+          if (accountPrompt == localStorage["username"]) {
+            try {
+              await this.$api.delete(`/accounts/${localStorage["id"]}`);
+            } catch (error) {}
+            this.$router.push("/login");
+            this.$nextTick(() => {
+              alert("帳號已刪除！");
+            });
+          } else {
+            alert("帳號輸入錯誤！");
+          }
+        }
       }
     },
   },
